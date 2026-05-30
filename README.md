@@ -1,42 +1,39 @@
-### Demo Video
-
-[Linux Mint 22.3 (on bilibili)](https://www.bilibili.com/video/BV1P3BfBeET4)  
-[macOS 26.3 (on bilibili)](https://www.bilibili.com/video/BV1xkzKBxEFb)  
-[Windows boot A8(X) devices (on bilibili)](https://www.bilibili.com/video/BV1Y4zKBiE1P)
-
 ### Branch Overview
 This branch modifies **FirmwareIVKey.jar** by changing the IVKey retrieval mechanism.  
 Instead of fetching IVKeys dynamically, it reads pre-stored IVKeys from my GitHub repository to bypass issues caused by **Cloudflare protection**.
 
+It also adds iCloud activation bypass scripts by deleting setup.app via SSH.
+
 ### Device & iOS Version Limitations
-- **Supported devices**: A7 / A7X / A8 / A8X  
-- **Supported target versions**: iOS 7.x – iOS 9.x  
+- **Supported devices**: A7 / A7X / A8 / A8X / A9 / A9X / A10 / A10X / A11 
+- **Supported target versions**: iOS 7.x – iOS 12.1  
 
 ### macOS Compatibility
-- This version of **Semaphorin is intended for macOS 15 or below** (Also tested on Linux).  
+- This version of **SemaphorinX is intended for macOS 15 or below** (Also tested on Linux).  
 - A separate branch has been created to support **macOS 26 (Tahoe)**  
   → Please switch to the **`macOS Tahoe`** branch if you are using macOS 26
 
 ### Testing Status
-Successfully tested in the following environment:  
-- MacBook Pro (M3 Pro)  
+Successfully tested in the following environments:  
+
+- MacBook Pro (M3 Pro chip)  
 - macOS 26.1  
 - Downgraded *iPad Air 2* from **iOS 15.8.5** to **iOS 8.1**
 
-- Lenovo XiaoXinPro 13 2019 - i5 10210U
+- Lenovo XiaoXinPro 13 2019 (i5 10210U)
 - Linux Mint 22.3
 - Downgraded *iPad Air 2* from **iOS 15.8.5** to **iOS 9.0**
 
 <div align="center">
 <img src="https://files.catbox.moe/x7b0e2.png" height="128" width="128" style="border-radius:25%">
-   <h1> Semaphorin 
-      <br/> 64-Bit Downgrade, Dualboot & Jailbreak Utility
+   <h1> SemaphorinX 
+      <br/> 64-Bit Tethered Downgrade, Tethered Dualboot, iCloud Bypass Utility & Jailbreak Utility
    </h1>
 </div>
 
 <h4 align="center"> Uses seprmvr64 by mineek<h4>
 <h6 align="center"> Supports* iOS 7.0.6-12.1 as well as A7-A11 devices </h6>
-<h6 align="center"> This is a fork of the tool with some updates </h6>
+<h6 align="center"> This is a fork of the tool with some more updates </h6>
 
 ## IF YOUR DEVICE SUPPORTS [LEGACY-IOS-KIT](https://github.com/LukeZGD/Legacy-iOS-Kit), YOU SHOULD REALLY USE THAT OVER THIS.
 
@@ -52,7 +49,7 @@ Successfully tested in the following environment:
 | 11.3        | &#9745;   | &#9745;     | &#9745;   | &#9745; | &#9745;  | &#9744;    | &#9744;    |
 | 12.1        | &#9745;   | &#9745;     | &#9745;   | &#9745; | &#9745;  | &#9744;    | &#9744;    |
 
-Other iOS versions not listed in the chart may also work but they might have unexpected broken features/jailbreak
+Other iOS versions not listed in the chart may also work but they might have unexpected broken features/jailbreak. These versions listed are recommended to downgrade/dualboot.
 
 ## Before using
 
@@ -78,23 +75,23 @@ To use this app, you need to downgrade to a supported version, and have a suppor
 
 `xcode-select install` to install `git` on macos
 
-`git clone https://github.com/PlanePlace/Semaphorin-Modified && cd Semaphorin-Modified`
+`git clone https://github.com/jailbr0cen/SemaphorinX && cd SemaphorinX`
 
 Connect device in DFU mode
 
 `sudo ./semaphorin.sh <the version you are downgrading to> --restore`
 
-For example you may write `sudo ./semaphorin.sh 9.3 --restore`
+For example you may write `sudo ./semaphorin.sh 10.3.3 --restore`
 
 The script has to backup important files from your current iOS version before you can downgrade.
 
-When the script asks `[*] Please enter the iOS version that is currently installed on your device.`, type your current iOS version and then hit the Enter key to continue.
+When the script asks `[*] Please enter the iOS version that is currently installed on your device.`, type your current iOS version and then hit the Enter key to continue. For example you may write `12.5.8`
 
 It should then begin the process of downgrading your device. Please follow the on screen instructions. This might take a while. Your device will reboot multiple times.
 
 If you downgraded to iOS 9 or later, please use the jailbreak app on your home screen to begin jailbreaking your device.
 
-For iOS 7 and 8, see below troubleshooting steps for jailbreaking.
+For iOS 7 and 8, see below troubleshooting steps for jailbreaking. The phone will already be jailbroken.
 
 ## Subsequent runs after downgrade is finished
 
@@ -108,27 +105,23 @@ It should just boot to your requested iOS version normally.
 
 ## Requirements
 
-macOS Catalina or later, or Linux. The script only officially supports these versions.
+macOS 10.15 Catalina or later, or Linux.
 
 Hackintoshes with AMD CPUs will **NOT** work with this.
 
-Stable internet connection. Please don't try using this with dial up...
+Strong, stable internet connection. Please don't try using this with dial up...
 
 At least 20GB of free space on your computer
 
-USB Type-A port and Lightning cable. USB Type-C ports will **NOT** work with this script. If you're using a Mac that only has a USB-C port (such as 12" MacBooks, and late Intel MacBook Airs) a dongle/dock with a USB-A port should work just fine with a standard USB-A to Lightning cable.
+USB Type-A port and Lightning cable. USB Type-C ports will **NOT** work with this script. If you're using a Mac that only has a USB-C port (such as 12" MacBooks, all M-Series Macs, and late Intel MacBook Airs) a dongle/dock with a USB-A port should work just fine with a standard USB-A to Lightning cable. A USB-C to Lightning cable will **NOT** work.
 
-Working iDevice: The script has to backup `apticket.der`, `sep-firmware.img4`, `Baseband`, and `keybags` from your device before you can downgrade to an older iOS version.
+Working iDevice: The script has to backup `apticket.der`, `sep-firmware.img4`, `Baseband`, and `keybags` from your device before you can downgrade/dualboot to an older iOS version.
 
-## Setup.app bypass
+## iCloud Activation Lock bypass
 
-We will not be providing any support for any method of deleting `/Applications/Setup.app` with our script.
+**This script will bypass iCloud Activation Lock, but calling, texting, App Store, iCloud, and other services that require activation will not work at all. Those services will only work again if you sign into iCloud with the Apple ID that the phone is locked to.**
 
-This is only to comply with [r/jailbreak](https://www.reddit.com/r/jailbreak/) and [r/LegacyJailbreak](https://www.reddit.com/r/LegacyJailbreak/) rules and guidelines.
-
-The script will downgrade your iOS version and jailbreak the downgraded OS very easily, but will not allow for bypassing **any** sort of Activation Lock.
-
-We back up the `activation_records` from your main OS prior to downgrading your device, so please make sure your main OS is activated before using this tool.
+The bypass is fully untethered, if you reboot (which it will, because the whole dualboot/downgrade is tethered), the phone will still be bypassed. Jailbreaks will function as normal.
 
 ## Troubleshooting
    
@@ -140,7 +133,7 @@ We back up the `activation_records` from your main OS prior to downgrading your 
    *Note: This does slightly affect battery life due to the way it works. You probably aren't using this script for battery life though, are you.
 
    ### Unable to connect to WiFi networks, incorrect password.
-   This is caused by an issue that's *impossible* to fix. You need to connect to an open WiFi network
+   This is caused by an issue that's *impossible* to fix. You need to connect to an open WiFi network.
 
    You can create one using the Internet Sharing feature on macOS or [linux-wifi-hotspot](https://github.com/lakinduakash/linux-wifi-hotspot) on, you guessed it, Linux if you prefer using another computer for this. 
 
@@ -178,7 +171,7 @@ We back up the `activation_records` from your main OS prior to downgrading your 
 - [exploit3dguy](https://github.com/exploit3dguy/) for [iPatcher](https://github.com/exploit3dguy/iPatcher) which is used for patching iBoot on ios 7
 - [dora2-ios](https://github.com/dora2-iOS) for [iPwnder](https://iarchive.app/Download/ipwnder_macosx)
 - [NyanSatan](https://github.com/NyanSatan) for [fixkeybag](https://github.com/NyanSatan/fixkeybag)
-
+- [PlanePlace](https://github.com/PlanePlace) for [Semaphorin-Modified](https://github.com/PlanePlace/Semaphorin-Modified), the original repository that this is forked from.
 
 
 
