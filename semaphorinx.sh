@@ -3,14 +3,14 @@ mkdir -p logs
 #set -x
 verbose=1
 
-echo "[*] Command ran:`if [ $EUID = 0 ]; then echo " sudo"; fi` ./semaphorin.sh $@"
+echo "[*] Command ran:`if [ $EUID = 0 ]; then echo " sudo"; fi` ./semaphorinx.sh $@"
 cd "$(dirname "$0")"
 os=$(uname)
 maj_ver=$(echo "$os_ver" | awk -F. '{print $1}')
 dir="$(pwd)"
 bin="$(pwd)/$(uname)"
 sshtars="$(pwd)/sshtars"
-echo "Semaphorin | Version 1.0"
+echo "SemaphorinX | Version 1.0"
 echo "Written by y08wilm and Mineek | Some code and ramdisk from Nathan"
 echo ""
 max_args=1
@@ -109,14 +109,14 @@ elif [[ $os =~ Linux ]]; then
     trap "clean_usbmuxd" EXIT
     trap "exit 1" INT TERM
 else
-    echo "[!] What operating system are you even using..."
+    echo "[!] What operating system are you even using... MS-DOS?"
     exit 1
 fi
 
 print_help() {
     cat << EOF
 Usage: $0 [VERSION...] [OPTION...]
-iOS 7.0.1-9.2.1 Downgrade & Jailbreak tool for older checkm8 devices using seprmvr64
+iOS 7.0.1-12.1 Downgrade & Jailbreak tool for older checkm8 devices using seprmvr64
 Examples:
     $0 7.1.2 --restore
     $0 7.1.2 --boot
@@ -143,6 +143,7 @@ Main operation mode:
     --clean                    Delete all the created boot files for your device
     --force-activation         Forces FactoryActivation on your device during restore
     --fix-auto-boot            Fixes booting into the main OS on A11 devices such as the iPhone X
+	--icloud-bypass            Bypasses iCloud Activation Lock
 
 The iOS version argument should be the iOS version you are downgrading to.
 EOF
@@ -219,8 +220,11 @@ parse_opt() {
             print_help
             exit 0
             ;;
+		--icloud-bypass)
+            icloud_bypass
+            ;;
         *)
-            echo "[-] Unknown option $1. Use $0 --help for help."
+            echo "[-] Unknown option $1. Use command $0 --help for help."
             exit 1;
     esac
 }
@@ -267,7 +271,7 @@ parse_cmdline() {
         elif [ "$arg_count" -lt "$max_args" ]; then
             parse_arg "$arg";
         else
-            echo "[-] Too many arguments. Use $0 --help for help.";
+            echo "[-] Too many arguments. Use command $0 --help for help.";
             exit 1;
         fi
     done
@@ -319,7 +323,7 @@ get_device_mode() {
     if [ "$device_count" = "0" ]; then
         device_mode=none
     elif [ "$device_count" -ge "2" ]; then
-        echo "[-] Please attach only one device" > /dev/tty
+        echo "[-] Please connect only ONE iDevice" > /dev/tty
         kill -30 0
         exit 1;
     fi
@@ -1905,7 +1909,7 @@ if [[ "$clean" == 1 ]]; then
     exit 0
 fi
 if [[ -z "$r" && $boot != 1 && $boot_clean != 1 ]]; then
-    read -p "what ios version is or was installed on this device prior to downgrade? " r
+    read -p "what iOS version is or was installed on this device prior to downgrade/dualboot? " r
 fi
 if [[ "$boot_clean" == 1 ]]; then
     _download_clean_boot_files $deviceid $replace $version
