@@ -79,9 +79,9 @@ To use this app, you need to downgrade to a supported version, and have a suppor
 
 Connect device in DFU mode
 
-`sudo ./semaphorin.sh <the version you are downgrading to> --restore`
+`sudo ./semaphorinx.sh <the version you are downgrading to> --restore`
 
-For example you may write `sudo ./semaphorin.sh 10.3.3 --restore`
+For example you may write `sudo ./semaphorinx.sh 10.3.3 --restore`
 
 The script has to backup important files from your current iOS version before you can downgrade.
 
