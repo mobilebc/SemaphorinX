@@ -75,7 +75,7 @@ To use this app, you need to downgrade to a supported version, and have a suppor
 
 `xcode-select install` to install `git` on macos
 
-`git clone https://github.com/jailbr0cen/SemaphorinX && cd SemaphorinX`
+`git clone https://github.com/mobilebc/SemaphorinX && cd SemaphorinX`
 
 Connect device in DFU mode
 
@@ -106,6 +106,8 @@ It should just boot to your requested iOS version normally.
 ## Requirements
 
 macOS 10.15 Catalina or later, or Linux.
+
+Apple Silicon Macs may work, support is spotty.
 
 Hackintoshes with AMD CPUs will **NOT** work with this.
 
